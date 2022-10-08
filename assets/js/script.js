@@ -14,6 +14,15 @@ var repoSearchTerm = $("repo-search-term");
 //   });
 
 
+//Error Handler
+var handlerErrors = (response) => {
+    if(!response.ok) {
+        throw Error(res.statusText);
+    }
+    return response;
+}
+
+
 // search btn
 var formSearchHandler = function (event) {
     event.preventDefault();
