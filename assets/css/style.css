@@ -1,5 +1,35 @@
 
-  .row {
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --backgroud-color: #fcf2fb;
+    --button-color-nohover: rgb(242, 153, 0);
+}
+
+.container {
+    margin: 150px auto;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    border: 2px double;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 50px;
+    background-color: var(--backgroud-color);
+    border-radius: 15px;
+}
+
+
+  .search-gourp {
     display: flex;
     flex-direction: column;
   }
+
+  #five-day-forcast {
+    display: flex;
+    flex-direction: row;
+    border: 1px black;
+}
