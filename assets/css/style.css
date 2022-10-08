@@ -37,6 +37,9 @@ p {
     font-weight: bold;
 }
 
+.currForcast {
+    text-align: left;
+}
 .btn {
     background:radial-gradient(orange,navy);
     color: black;
