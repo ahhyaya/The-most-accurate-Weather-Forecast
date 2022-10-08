@@ -6,7 +6,7 @@
 }
 
 :root {
-    --backgroud-color: #fcf2fb;
+    --backgroud-color: #b7bfe9d9;
     --button-color-nohover: rgb(242, 153, 0);
 }
 
@@ -36,14 +36,14 @@ p {
 }
 
 .btn {
-    background-color: lightblue;
+    background:radial-gradient(orange,navy);
     color: black;
     line-height: 20px;
     margin-bottom: 10px;
 }
 
 #search-btn {
-    background-color: lightcoral;
+    background:radial-gradient(white,navy);
     margin: 10px 0 40px 0;
     width: 100%;
 }
