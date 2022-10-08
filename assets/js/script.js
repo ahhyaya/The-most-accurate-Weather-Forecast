@@ -37,10 +37,12 @@ var getCityRepos = function (city) {
 }
 
 
-
-function searchByInput() {
-
-}
-
-
-searchBtn.on("click", searchByInput());
+var cityClickHandler = function (event) {
+    var cityList = event.target.getAttribute('data-city');
+  
+    if (cityList) {
+      getFeaturedRepos(cityList);
+  
+      currWeatherForcastEl.textContent = '';
+    }
+  };
