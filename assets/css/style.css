@@ -10,6 +10,12 @@
     --button-color-nohover: rgb(242, 153, 0);
 }
 
+h1 {
+    background:radial-gradient(orange,navy);
+    padding: 20px;
+    margin-bottom: 35px;
+    margin-top: -10px;
+}
 .container {
     margin: 150px auto;
     width: 100%;
