@@ -80,17 +80,12 @@ var getCurrWeather = function (event) {
         .then((response) => {
             saveCity(cityValue);
             var currWeatherIcon = response.weather.icon;
-            var currTimeUTC = Date().toString();
+            var currTimeUTC = response.dt.date;
             var currTime = moment(currTimeUTC).format("MM-DD-YYYY  ");
             var currTemp = response.main.temp;
             var currWind = response.wind.speed;
             var currHumidity = response.main.humidity;
-            var day1 = moment().add(1,'day').format("MMM Do YY")
-            var day2 = moment().add(2,'day').format("MMM Do YY")
-            var day3 = moment().add(3,'day').format("MMM Do YY")
-            var day4 = moment().add(4,'day').format("MMM Do YY")
-            var day5 = moment().add(5,'day').format("MMM Do YY")
-            
+
             $.ajax({
                 url: queryURL,
                 method: "GET"
@@ -99,92 +94,112 @@ var getCurrWeather = function (event) {
                 $("#currTemp").text("Temp: " + currTemp + "°F");
                 $("#currWind").text("Wind: " + currWind + "MPH");
                 $("#currHumidity").text("Humidity: " + currHumidity + "%");
-                
-
             });
-        })
-}
 
-var saveCity = function (searchingCity) {
-    for (var i = 0; i < localStorage.length; i++) {
-        if (localStorage["cities" + i] == searchingCity) {
-            break;
-        } else {
-            localStorage.setItem("cities" + localStorage.length, searchingCity);
+            for (var d = 0; d < 5; d++) {
+                var futureDays = moment().add(d, "day").format("MMM Do YY");
+                console.log(futureDays)
+                var futureWeatherIcon = response.weather.icon;
+                // var futureTimeUTC = futureDays.toString()
+                // var futureDays = moment(futureTimeUTC).format("MM-DD-YYYY  ");
+                var futureTemp = response.main.temp;
+                var futureWind = response.wind.speed;
+                var futureHumidity = response.main.humidity;
+                $.ajax({
+                    url: queryURL,
+                    method: "GET"
+                }).then(function () {
+                    $("#future-city-date-icon").text(city.val() + " " + futureDays + futureWeatherIcon);
+                    $("#futureTemp").text("Temp: " + futureTemp + "°F");
+                    $("#futureWind").text("Wind: " + futureWind + "MPH");
+                    $("#futureHumidity").text("Humidity: " + futureHumidity + "%");
+                });
+
+            }
+
+        })
+    }
+
+    var saveCity = function (searchingCity) {
+        for (var i = 0; i < localStorage.length; i++) {
+            if (localStorage["cities" + i] == searchingCity) {
+                break;
+            } else {
+                localStorage.setItem("cities" + localStorage.length, searchingCity);
+            }
         }
     }
-}
 
-// var loadCity = function() {
-//     for (var i =0; i < city.length; i++) {
-//     if(localStorage.length !== 0) {
-//         var storedCity = city.val();
-//         var StoredCityNum = localStorage.getItem(storedCity);
-//         city.val()=StoredCityNum;
-//     }
-// }
-// }
-
+    // var loadCity = function() {
+    //     for (var i =0; i < city.length; i++) {
+    //     if(localStorage.length !== 0) {
+    //         var storedCity = city.val();
+    //         var StoredCityNum = localStorage.getItem(storedCity);
+    //         city.val()=StoredCityNum;
+    //     }
+    // }
+    // }
 
 
 
 
-// // // get weather forcast function
-// var getWeatherRepos = function (cityList) {
-//     var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityList + "&appid=" + APIKey;
 
-//     fetch(queryURL).then(function (response) {
-//         if (response.ok) {
-//             response.json().then(function (data) {
-//                 displayRepos(data.main.temp, cityList); //ck data source
-//             });
-//         } else {
-//             alert('Error: ' + response.statusText);
-//         }
-//     });
-// };
+    // // // get weather forcast function
+    // var getWeatherRepos = function (cityList) {
+    //     var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityList + "&appid=" + APIKey;
 
-// // //display function
-// var displayCurrForcast = function (repos, searchTerm) {
-//     if (repos.length === 0) {
-//         currWeatherForcastEl.textContent = 'No repositories found.';
-//         return;
-//     }
+    //     fetch(queryURL).then(function (response) {
+    //         if (response.ok) {
+    //             response.json().then(function (data) {
+    //                 displayRepos(data.main.temp, cityList); //ck data source
+    //             });
+    //         } else {
+    //             alert('Error: ' + response.statusText);
+    //         }
+    //     });
+    // };
 
-//     repoSearchTerm.textContent = searchTerm;
-//     var repoCity = repos.name;
-//     var repoTemp = repos.main.temp;
-//     var repoWind = repos.wind.speed;
-//     var repoHumidity = repos.main.humidity;
-// // var titleEl = document.createElement('span');
-// var cityDisplay = $("#city-date-icon");
-// cityDisplay.textContent = repoCity;
-// //  + repoTemp + repoWind + repoHumidity;
-//     repoSearchTerm.appendChild(cityDisplay);
+    // // //display function
+    // var displayCurrForcast = function (repos, searchTerm) {
+    //     if (repos.length === 0) {
+    //         currWeatherForcastEl.textContent = 'No repositories found.';
+    //         return;
+    //     }
 
-// }
+    //     repoSearchTerm.textContent = searchTerm;
+    //     var repoCity = repos.name;
+    //     var repoTemp = repos.main.temp;
+    //     var repoWind = repos.wind.speed;
+    //     var repoHumidity = repos.main.humidity;
+    // // var titleEl = document.createElement('span');
+    // var cityDisplay = $("#city-date-icon");
+    // cityDisplay.textContent = repoCity;
+    // //  + repoTemp + repoWind + repoHumidity;
+    //     repoSearchTerm.appendChild(cityDisplay);
 
-// var displayRepos = function (repos, searchTerm) {
-//     if (repos.length === 0) {
-//         currWeatherForcastEl.textContent = 'No repositories found.';
-//         return;
-//     }
+    // }
 
-//     repoSearchTerm.textContent = searchTerm;
+    // var displayRepos = function (repos, searchTerm) {
+    //     if (repos.length === 0) {
+    //         currWeatherForcastEl.textContent = 'No repositories found.';
+    //         return;
+    //     }
 
-//     for (var i = 0; i < repos.length; i++) {
-//         var repoCity = repos[i].name;
-//         var repoTemp = repos[i].main.temp;
-//         var repoWind = repos[i].wind.speed;
-//         var repoHumidity = repos[i].main.humidity;
+    //     repoSearchTerm.textContent = searchTerm;
 
-//         var titleEl = document.createElement('span');
-//         titleEl.textContent = repoCity + repoTemp + repoWind + repoHumidity;
-//          currWeatherForcastEl.appendChild(repoEl);
-//     }
-// };
+    //     for (var i = 0; i < repos.length; i++) {
+    //         var repoCity = repos[i].name;
+    //         var repoTemp = repos[i].main.temp;
+    //         var repoWind = repos[i].wind.speed;
+    //         var repoHumidity = repos[i].main.humidity;
 
-searchBtn.on('click', formSearchHandler);
+    //         var titleEl = document.createElement('span');
+    //         titleEl.textContent = repoCity + repoTemp + repoWind + repoHumidity;
+    //          currWeatherForcastEl.appendChild(repoEl);
+    //     }
+    // };
+
+    searchBtn.on('click', formSearchHandler);
 // $(".majorBtn").on('click', cityClickHandler);
 
 // localStorage.clear();
