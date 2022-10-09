@@ -16,7 +16,7 @@ var repoSearchTerm = $("repo-search-term");
 
 //Error Handler
 var handlerErrors = (response) => {
-    if(!response.ok) {
+    if (!response.ok) {
         throw Error(res.statusText);
     }
     return response;
@@ -67,39 +67,45 @@ var formSearchHandler = function (event) {
 
 
 //searching city function second try
-var getCurrWeather = function(event) {
+var getCurrWeather = function (event) {
     var cityValue = city.val();
     var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityValue + "&appid=" + APIKey;
     // console.log(queryURL);
 
     fetch(queryURL)
-    .then(handlerErrors)
-    .then((response) => {
-        return response.json();
-    })
-    .then((response) => {
-        saveCity(cityValue);
-        var currWeatherIcon = response.weather.icon;
-        var currTimeUTC = Date().toString();
-        var currTime = moment(currTimeUTC).format("MM-DD-YYYY  ");
-        var currTemp = response.main.temp;
-        var currWind = response.wind.speed;
-        var currHumidity = response.main.humidity;
-
-        $.ajax({
-            url:queryURL,
-            method: "GET"
-        }).then(function() {
-            $("#repo-search-term").text(city.val() + " " + currTime+ currWeatherIcon);
-            $("#currTemp").text("Temp: " + currTemp + "°F");
-            $("#currWind").text("Wind: " + currWind + "MPH");
-            $("#currHumidity").text("Humidity: " + currHumidity +"%");
+        .then(handlerErrors)
+        .then((response) => {
+            return response.json();
+        })
+        .then((response) => {
+            saveCity(cityValue);
+            var currWeatherIcon = response.weather.icon;
+            var currTimeUTC = Date().toString();
+            var currTime = moment(currTimeUTC).format("MM-DD-YYYY  ");
+            var currTemp = response.main.temp;
+            var currWind = response.wind.speed;
+            var currHumidity = response.main.humidity;
+            var day1 = moment().add(1,'day').format("MMM Do YY")
+            var day2 = moment().add(2,'day').format("MMM Do YY")
+            var day3 = moment().add(3,'day').format("MMM Do YY")
+            var day4 = moment().add(4,'day').format("MMM Do YY")
+            var day5 = moment().add(5,'day').format("MMM Do YY")
             
-        });
-    })
+            $.ajax({
+                url: queryURL,
+                method: "GET"
+            }).then(function () {
+                $("#repo-search-term").text(city.val() + " " + currTime + currWeatherIcon);
+                $("#currTemp").text("Temp: " + currTemp + "°F");
+                $("#currWind").text("Wind: " + currWind + "MPH");
+                $("#currHumidity").text("Humidity: " + currHumidity + "%");
+                
+
+            });
+        })
 }
 
-var saveCity = function(searchingCity) {
+var saveCity = function (searchingCity) {
     for (var i = 0; i < localStorage.length; i++) {
         if (localStorage["cities" + i] == searchingCity) {
             break;
@@ -150,10 +156,10 @@ var saveCity = function(searchingCity) {
 //     var repoTemp = repos.main.temp;
 //     var repoWind = repos.wind.speed;
 //     var repoHumidity = repos.main.humidity;
-    // // var titleEl = document.createElement('span');
-    // var cityDisplay = $("#city-date-icon");
-    // cityDisplay.textContent = repoCity;
-    // //  + repoTemp + repoWind + repoHumidity;
+// // var titleEl = document.createElement('span');
+// var cityDisplay = $("#city-date-icon");
+// cityDisplay.textContent = repoCity;
+// //  + repoTemp + repoWind + repoHumidity;
 //     repoSearchTerm.appendChild(cityDisplay);
 
 // }
