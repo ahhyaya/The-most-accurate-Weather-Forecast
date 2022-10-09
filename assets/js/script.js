@@ -67,7 +67,26 @@ var cityClickHandler = function (event) {
 
 
 //searching city function second try
+var getCurrWeather = function(event) {
+    var cityValue = city.val();
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityValue + "&appid=" + APIKey;
+    console.log(queryURL);
 
+    fetch(queryURL)
+    .then(handlerErrors)
+    .then((response) => {
+        return response.json();
+    })
+    .then((response) => {
+        saveCity(cityValue);
+        var currWeatherIcon = "https://api.openweathermap.org/img/w/" + response.weather[0].icon + ".png";
+        var currTimeUTC = response.dt;
+        var currTemp = response.main.temp;
+        var currWind = response.wind.speed;
+        var currHumidity = response.main.humidity;
+    })
+
+}
 
 // get weather forcast function
 var getWeatherRepos = function (cityList) {
