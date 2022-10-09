@@ -70,7 +70,7 @@ var formSearchHandler = function (event) {
 var getCurrWeather = function(event) {
     var cityValue = city.val();
     var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityValue + "&appid=" + APIKey;
-    console.log(queryURL);
+    // console.log(queryURL);
 
     fetch(queryURL)
     .then(handlerErrors)
@@ -79,13 +79,24 @@ var getCurrWeather = function(event) {
     })
     .then((response) => {
         saveCity(cityValue);
-        var currWeatherIcon = "https://api.openweathermap.org/img/w/" + response.weather[0].icon + ".png";
-        var currTimeUTC = response.dt;
+        var currWeatherIcon = response.weather.icon;
+        var currTimeUTC = Date().toString();
+        var currTime = moment(currTimeUTC).format("MM-DD-YYYY  ");
         var currTemp = response.main.temp;
         var currWind = response.wind.speed;
         var currHumidity = response.main.humidity;
-    })
 
+        $.ajax({
+            url:queryURL,
+            method: "GET"
+        }).then(function() {
+            $("#repo-search-term").text(city.val() + " " + currTime+ currWeatherIcon);
+            $("#currTemp").text("Temp: " + currTemp + "°F");
+            $("#currWind").text("Wind: " + currWind + "MPH");
+            $("#currHumidity").text("Humidity: " + currHumidity +"%");
+            
+        });
+    })
 }
 
 var saveCity = function(searchingCity) {
@@ -98,14 +109,18 @@ var saveCity = function(searchingCity) {
     }
 }
 
-var loadCity = function(saveCity) {
-    for (var i =0; i < city.length; i++) {
-    if(localStorage.length !== 0) {
-        var storedCity = city.val();
-        var StoredCityNum = localStorage.getItem(storedCity);
-        city.val()=storedCity;
-    }
-}
+// var loadCity = function() {
+//     for (var i =0; i < city.length; i++) {
+//     if(localStorage.length !== 0) {
+//         var storedCity = city.val();
+//         var StoredCityNum = localStorage.getItem(storedCity);
+//         city.val()=StoredCityNum;
+//     }
+// }
+// }
+
+
+
 
 
 // // // get weather forcast function
@@ -164,4 +179,6 @@ var loadCity = function(saveCity) {
 // };
 
 searchBtn.on('click', formSearchHandler);
-$(".majorBtn").on('click', cityClickHandler);
+// $(".majorBtn").on('click', cityClickHandler);
+
+// localStorage.clear();
