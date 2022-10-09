@@ -27,9 +27,9 @@ var handlerErrors = (response) => {
 var formSearchHandler = function (event) {
     event.preventDefault();
     var cityInput = city.val();
-    console.log(cityInput)
+    // console.log(cityInput)
     if (cityInput) {
-        getCityRepos(cityInput);
+        getCurrWeather(cityInput);
         currWeatherForcastEl.textContent = '';
         city.value = '';
     } else {
@@ -38,14 +38,14 @@ var formSearchHandler = function (event) {
 };
 
 
-//majorcity btn
-var cityClickHandler = function (event) {
-    var cityList = event.target.getAttribute('data-city');
-    if (cityList) {
-        getWeatherRepos(cityList);
-        currWeatherForcastEl.textContent = '';
-    }
-};
+// //majorcity btn
+// var cityClickHandler = function (event) {
+//     var cityList = event.target.getAttribute('data-city');
+//     if (cityList) {
+//         getWeatherRepos(cityList);
+//         currWeatherForcastEl.textContent = '';
+//     }
+// };
 
 // //searcing city function
 // var getCityRepos = function (city) {
@@ -98,42 +98,50 @@ var saveCity = function(searchingCity) {
     }
 }
 
-
-
-// get weather forcast function
-var getWeatherRepos = function (cityList) {
-    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityList + "&appid=" + APIKey;
-
-    fetch(queryURL).then(function (response) {
-        if (response.ok) {
-            response.json().then(function (data) {
-                displayRepos(data.main.temp, cityList); //ck data source
-            });
-        } else {
-            alert('Error: ' + response.statusText);
-        }
-    });
-};
-
-//display function
-var displayCurrForcast = function (repos, searchTerm) {
-    if (repos.length === 0) {
-        currWeatherForcastEl.textContent = 'No repositories found.';
-        return;
+var loadCity = function(saveCity) {
+    for (var i =0; i < city.length; i++) {
+    if(localStorage.length !== 0) {
+        var storedCity = city.val();
+        var StoredCityNum = localStorage.getItem(storedCity);
+        city.val()=storedCity;
     }
-
-    repoSearchTerm.textContent = searchTerm;
-    var repoCity = repos.name;
-    var repoTemp = repos.main.temp;
-    var repoWind = repos.wind.speed;
-    var repoHumidity = repos.main.humidity;
-    // var titleEl = document.createElement('span');
-    var cityDisplay = $("#city-date-icon");
-    cityDisplay.textContent = repoCity;
-    //  + repoTemp + repoWind + repoHumidity;
-    repoSearchTerm.appendChild(cityDisplay);
-
 }
+
+
+// // // get weather forcast function
+// var getWeatherRepos = function (cityList) {
+//     var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityList + "&appid=" + APIKey;
+
+//     fetch(queryURL).then(function (response) {
+//         if (response.ok) {
+//             response.json().then(function (data) {
+//                 displayRepos(data.main.temp, cityList); //ck data source
+//             });
+//         } else {
+//             alert('Error: ' + response.statusText);
+//         }
+//     });
+// };
+
+// // //display function
+// var displayCurrForcast = function (repos, searchTerm) {
+//     if (repos.length === 0) {
+//         currWeatherForcastEl.textContent = 'No repositories found.';
+//         return;
+//     }
+
+//     repoSearchTerm.textContent = searchTerm;
+//     var repoCity = repos.name;
+//     var repoTemp = repos.main.temp;
+//     var repoWind = repos.wind.speed;
+//     var repoHumidity = repos.main.humidity;
+    // // var titleEl = document.createElement('span');
+    // var cityDisplay = $("#city-date-icon");
+    // cityDisplay.textContent = repoCity;
+    // //  + repoTemp + repoWind + repoHumidity;
+//     repoSearchTerm.appendChild(cityDisplay);
+
+// }
 
 // var displayRepos = function (repos, searchTerm) {
 //     if (repos.length === 0) {
