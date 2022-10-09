@@ -88,6 +88,18 @@ var getCurrWeather = function(event) {
 
 }
 
+var saveCity = function(searchingCity) {
+    for (var i = 0; i < localStorage.length; i++) {
+        if (localStorage["cities" + i] == searchingCity) {
+            break;
+        } else {
+            localStorage.setItem("cities" + localStorage.length, searchingCity);
+        }
+    }
+}
+
+
+
 // get weather forcast function
 var getWeatherRepos = function (cityList) {
     var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityList + "&appid=" + APIKey;
