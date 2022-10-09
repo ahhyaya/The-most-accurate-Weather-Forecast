@@ -47,24 +47,26 @@ var cityClickHandler = function (event) {
     }
 };
 
-// searcing city function
-var getCityRepos = function (city) {
-    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
-    fetch(queryURL)
-        .then(function (response) {
-            if (response.ok) {
-                response.json().then(function (data) {
-                    displayRepos(data.name, city); //cityname
-                });
-            } else {
-                alert('Error: ' + response.statusText);
-            }
-        })
-        .catch(function (error) {
-            alert('Unable to connect to Weather Data Documentation');
-        });
-}
+// //searcing city function
+// var getCityRepos = function (city) {
+//     var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
+//     fetch(queryURL)
+//         .then(function (response) {
+//             if (response.ok) {
+//                 response.json().then(function (data) {
+//                     displayRepos(data.name, city); //cityname
+//                 });
+//             } else {
+//                 alert('Error: ' + response.statusText);
+//             }
+//         })
+//         .catch(function (error) {
+//             alert('Unable to connect to Weather Data Documentation');
+//         });
+// }
 
+
+//searching city function second try
 
 
 // get weather forcast function
