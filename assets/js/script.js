@@ -53,7 +53,7 @@ var getCurrWeather = function (event) {
             var currentWeather = `
                 <h2>${response.name} ${currTime}<img src="${currWeatherIcon}"></h2>
                  <ul class="list-forcast">
-                    <li>Temp: ${currTemp} °F</li>
+                    <li>Temp: ${currTemp}°F</li>
                     <li>Wind: ${currWind}mph</li>
                     <li>Humidity: ${currHumidity}%</li>
                  </ul>`;
@@ -64,6 +64,40 @@ var getCurrWeather = function (event) {
 
 
 
+function fiveDayForcast(event) {
+    var cityValue = city.val();
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityValue + "&appid=" + APIKey;
+    fetch(queryURL)
+    .then(handlerErrors)
+    .then((response) => {
+        return response.json();
+    })
+    .then((response) => {
+        var fiveDayForcast =`
+        <div id="five-day-forcast">`;
+        for (var i = 0; i < response.list.length; i++) {
+            var futureDays = response.list[i];
+            var futureTimeUTC = response.list[i].dt;
+            var futureTime = moment(futureTimeUTC).format("MM-DD-YYYY  ");
+            var futureIcon = "https://openweathermap.org/img/w/" + response.weather[0].icon + ".png";
+
+            fiveDayForcast += `
+            <div class="five-day-forcast card">
+                <ul class="list">
+                    <li>${futureTime}</li>
+                    <li class="weather-icon"><img src=${futureIcon}></li>
+                    <li>Temp: ${futureDays.main.temp}°F</li>
+                    <br>
+                    <li>Wind: ${futureDays.wind.speed}mph</li>
+                    <br>
+                    <li>Humidity: ${futureDays.main.humidity}%</li>
+                </ul>
+            </div>`; 
+    }
+    fiveDayForcast += `</div>`;
+    $("five-day-forcast").html(fiveDayForcast);
+    });
+};
 
 
 
