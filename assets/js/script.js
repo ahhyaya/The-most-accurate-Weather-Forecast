@@ -87,10 +87,11 @@ var fiveDayForcast = (event) => {
             var fiveDayForcast = `
                 <h2>5-Day-Forcast</h2>
                 <div id="five-day-forcast">`;
-            for (var i = 0; i < response.list.length; i++) {
+            for (var i = 0; i < 5; i++) {
                 var futureDays = response.list[i];
-                var futureTimeUTC = futureDays.dt.date;
-                var futureTime = moment(futureTimeUTC).format("MM-DD-YYYY  ");
+                // var day = moment().add(i + 1,'day').format("MMM Do YY")
+                // var futureTimeUTC = futureDays.dt.date;
+                var futureTime = moment().add(i + 1,'day').format("MMM Do YY");
                 // console.table(futureTime)
                 var futureIcon = "https://openweathermap.org/img/w/" + futureDays.weather[0].icon + ".png";
 
