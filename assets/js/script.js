@@ -43,7 +43,7 @@ var getCurrWeather = (event) => {
     var cityValue = city.val();
     cityLocal = city.val();
     var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityValue + "&appid=" + APIKey;
-    console.log(queryURL);
+    // console.log(queryURL);
 
     fetch(queryURL)
         .then(handlerErrors)
@@ -61,11 +61,11 @@ var getCurrWeather = (event) => {
             var currWind = response.wind.speed;
             var currHumidity = response.main.humidity;
             loadCity();
-            fiveDayForcast(event);
+            fiveDayForecast(event);
             // $("#curr-weather").text(response.name);
             var currentWeather = `
                 <h2>${response.name} ${currTime}<img src="${currWeatherIcon}"></h2>
-                 <ul class="list-forcast">
+                 <ul class="list-forecast">
                     <li>Temp: ${currTemp}°F</li>
                     <li>Wind: ${currWind}mph</li>
                     <li>Humidity: ${currHumidity}%</li>
@@ -74,7 +74,7 @@ var getCurrWeather = (event) => {
         })
 };
 
-var fiveDayForcast = (event) => {
+var fiveDayForecast = (event) => {
     var cityValue = city.val();
     var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityValue + "&appid=" + APIKey;
     fetch(queryURL)
@@ -84,9 +84,9 @@ var fiveDayForcast = (event) => {
             return response.json();
         })
         .then((response) => {
-            var fiveDayForcast = `
-                <h2>5-Day-Forcast</h2>
-                <div id="five-day-forcast">`;
+            var fiveDayForecast = `
+                <h3>5-Day-Forecast</h3>
+                <div id="five-day-forecast">`;
             for (var i = 0; i < 5; i++) {
                 var futureDays = response.list[i];
                 // var day = moment().add(i + 1,'day').format("MMM Do YY")
@@ -95,9 +95,9 @@ var fiveDayForcast = (event) => {
                 // console.table(futureTime)
                 var futureIcon = "https://openweathermap.org/img/w/" + futureDays.weather[0].icon + ".png";
 
-                fiveDayForcast += `
-                    <div class="five-day-forcast card m-2 p0">
-                        <ul class="list" p-3>
+                fiveDayForecast += `
+                    <div class="five-day-forecast card m-3 p0">
+                        <ul class="list"id="fiva-day-weather" p-2>
                             <li>${futureTime}</li>
                             <li class="weather-icon"><img src=${futureIcon}></li>
                             <li>Temp: ${futureDays.main.temp}°F</li>
@@ -107,10 +107,10 @@ var fiveDayForcast = (event) => {
                             <li>Humidity: ${futureDays.main.humidity}%</li>
                         </ul>
                     </div>`;
-                    console.table(fiveDayForcast)
+                    // console.table(fiveDayForecast)
             }
-            fiveDayForcast += `</div>`;
-            $(".5-day").html(fiveDayForcast);
+            fiveDayForecast += `</div>`;
+            $(".5-day").html(fiveDayForecast);
         });
 };
 
@@ -128,7 +128,7 @@ var saveCity = (searchingCity) => {
 }
 
 var loadCity = () => {
-    console.log("hello")
+    // console.log("hello")
     $("#city-history").empty();
     //loadcity 2nd try
     if (localStorage.length === 0) {

@@ -37,7 +37,7 @@ p {
     font-weight: bold;
 }
 
-.currForcast {
+.currForecast {
     text-align: left;
 }
 .btn {
@@ -57,12 +57,13 @@ p {
     flex-direction: column;
   }
 
-  #five-day-forcast {
+  #five-day-forecast {
     display: flex;
     flex-direction: row;
     border: 1px black;
     font-size: 12px;
     width: 100%;
+    margin: 5px 0 0 30px;
 }
 /* .forecast-card{
     color:black;
@@ -72,4 +73,12 @@ ul {
     padding: 0; /* Remove padding */
     margin: 0; /* Remove margins */
     /* text-align: left; */
+  }
+
+  #fiva-day-weather {
+    display: flex;
+    display: block;
+
+    text-align: center;
+    align-items: center;
   }
