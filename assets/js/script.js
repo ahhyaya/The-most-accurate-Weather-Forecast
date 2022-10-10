@@ -3,7 +3,7 @@ var APIKey = "6b4dd594eb93d97558f4b8bf3d0ad157";
 var city = $("#city-input");
 var currWeatherForcastEl = $("#curr-weather-forcast");
 var repoSearchTerm = $("repo-search-term");
-
+var cityInput = city.val();
 
 //Error Handler
 var handlerErrors = (response) => {
@@ -17,7 +17,6 @@ var handlerErrors = (response) => {
 // search btn
 var formSearchHandler = (event) => {
     event.preventDefault();
-    var cityInput = city.val();
     // console.log(cityInput)
     if (cityInput) {
         getCurrWeather(cityInput);
@@ -68,9 +67,6 @@ var getCurrWeather = (event) => {
         })
 };
 
-
-
-
 var fiveDayForcast = (event) => {
     var cityValue = city.val();
     var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityValue + "&appid=" + APIKey;
@@ -103,7 +99,7 @@ var fiveDayForcast = (event) => {
                         </ul>
                     </div>`;
             }
-            fiveDayForcast += `</div>`;
+            // fiveDayForcast += `</div>`;
             $("five-day-forcast").html(fiveDayForcast);
         });
 };
@@ -123,29 +119,66 @@ var saveCity = (searchingCity) => {
 
 var loadCity = () => {
     $("#city-history").empty();
-    if (localStorage.length !== 0) {
-        var storedCity = "cities" +(localStorage.length - 1);
-        var StoredCityNum = localStorage.getItem(storedCity);
-        city.attr("value",StoredCityNum);
+    //loadcity 2nd try
+    if (localStorage.length === 0) {
+        city.attr("value", cityInput);
+    } else {
+        var cityInputKey = "cities" + (localStorage.length - 1);
+        cityInput = localStorage.getItem(cityInputKey);
+        city.attr("value", cityInputKey);
+
         for (var i = 0; i < localStorage.length; i++) {
-            var cityLocal = localStorage.getItem("cities" + i);
-            if (city.val() === "") {
-                cityInput = StoredCityNum;
+            var cities = localStorage.getItem("cities", + i);
+            var citiesEl;
+            var cityLocal;
+            if (cityLocal === ""){
+                cityLocal = cities;
             }
-            var cityEl;
-            if (cityLocal === city.val()) {
-                cityEl = `<button type="button" class="active">${storedCity}</button></li>`;
+            if (cities == cityLocal) {
+                citiesEl = `<button type="button" class="active">${cityInputKey}</button></li>`;
             } else {
-                cityEl = `button type="button">${storedCity}</button></li>`
+                citiesEl = `<button type="button">${cityInputKey}</button></li>`
             }
-            $("city-history").prepend(cityEl);
+            $("#city-history").prepend(citiesEl);
         }
+    }
+
+
+
+
+
+
+
+    // //loadcity 1st try
+    // if (localStorage.length !== 0) {
+    //     var storedCity = "cities" +(localStorage.length - 1);
+    //     var storedCityName = localStorage.getItem(storedCity);
+    //     // console.log(storedCityName)
+    //     city.attr("value",storedCityName);
+    // }else if (storedCityName) {
+    //     city.attr("value",storedCityName);
+    // } else {
+    //     city.attr("value","Los Angeles")
+    // }
+
+    //     for (var i = 0; i < localStorage.length; i++) {
+    //         var cityLocal = localStorage.getItem("cities" + i);
+    //         if (cityInput === "") {
+    //             cityInput = cityLocal;
+    //             console.log(cityInput)
+    //         }
+    //         var cityEl;
+    //         if (cityLocal == cityInput) {
+    //             cityEl = `<button type="button" class="active">${storedCity}</button></li>`;
+    //             // console.log(cityEl)
+    //         } else {
+    //             cityEl = `button type="button">${storedCity}</button></li>`
+    //             // console.log(cityEl)
+    //         }
+    //         $("city-history").prepend(cityEl);
+    //     }
     } 
 
-    // if (localStorage.length > 0) {
-        
-    // }
-}
 
 searchBtn.on('click', formSearchHandler);
 
