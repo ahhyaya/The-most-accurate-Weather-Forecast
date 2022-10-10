@@ -57,14 +57,16 @@ p {
     flex-direction: column;
   }
 
-  .five-day-forcast {
+  #five-day-forcast {
     display: flex;
     flex-direction: row;
     border: 1px black;
     font-size: 12px;
     width: 100%;
 }
-
+/* .forecast-card{
+    color:black;
+} */
 ul {
     list-style-type: none; /* Remove bullets */
     padding: 0; /* Remove padding */
