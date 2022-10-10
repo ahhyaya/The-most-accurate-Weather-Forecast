@@ -96,7 +96,7 @@ var fiveDayForecast = (event) => {
                 var futureIcon = "https://openweathermap.org/img/w/" + futureDays.weather[0].icon + ".png";
 
                 fiveDayForecast += `
-                    <div class="five-day-forecast card m-3 p0">
+                    <div class="five-day-forecast card">
                         <ul class="list"id="fiva-day-weather" p-2>
                             <li>${futureTime}</li>
                             <li class="weather-icon"><img src=${futureIcon}></li>
@@ -110,7 +110,7 @@ var fiveDayForecast = (event) => {
                     // console.table(fiveDayForecast)
             }
             fiveDayForecast += `</div>`;
-            $(".5-day").html(fiveDayForecast);
+            $(".five-day").html(fiveDayForecast);
         });
 };
 
@@ -150,9 +150,9 @@ var loadCity = () => {
                 cityLocal = lastCity;
             }
             if (cities === cityLocal) {
-                citiesEl = `<button type="button" class="active btn" id="search-btn">${cities}</button>`;
+                citiesEl = `<button type="button" class="active btn" id="list-btn">${cities}</button>`;
             } else {
-                citiesEl = `<button type="button" class="btn" id="search-btn">${cities}</button></li>`
+                citiesEl = `<button type="button" class="btn" id="list-btn">${cities}</button></li>`
             }
             $("#city-history").prepend(citiesEl);
         }
