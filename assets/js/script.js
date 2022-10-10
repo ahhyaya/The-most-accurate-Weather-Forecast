@@ -148,38 +148,36 @@ var saveCity = function (searchingCity) {
         if (localStorage["cities" + i] == searchingCity) {
             cityStored = true;
             break;
-        } 
-    } 
-    if (cityStored === false) {
-            localStorage.setItem("cities" + localStorage.length, searchingCity);
         }
     }
-
+    if (cityStored === false) {
+        localStorage.setItem("cities" + localStorage.length, searchingCity);
+    }
+}
 
 var loadCity = function () {
-
+    $("#city-history").empty();
     if (localStorage.length !== 0) {
-        var storedCity = city.val();
+        var storedCity = "cities" +(localStorage.length - 1);
         var StoredCityNum = localStorage.getItem(storedCity);
-        storedCity = StoredCityNum;
-    } else {
-        $(city).attr("value", StoredCityNum);
-    }
-    for (var i = 0; i < localStorage.length; i++) {
-        var cityLocal = localStorage.getItem("cities" + i);
-        if (cityLocal === "") {
-            city = storedCity;
+        city.attr("value",StoredCityNum);
+        for (var i = 0; i < localStorage.length; i++) {
+            var cityLocal = localStorage.getItem("cities" + i);
+            if (city.val() === "") {
+                cityInput = StoredCityNum;
+            }
+            var cityEl;
+            if (cityLocal === city.val()) {
+                cityEl = `<button type="button" class="active">${storedCity}</button></li>`;
+            } else {
+                cityEl = `button type="button">${storedCity}</button></li>`
+            }
+            $("city-history").prepend(cityEl);
         }
-        var cityEl;
-        if (storedCity === city) {
-            cityEl = `<button type="button" class="active">${storedCity}</button></li>`;
-        } else {
-            cityEl = `button type="button">${storedCity}</button></li>`
-        }
-        $("city-result").prepend(cityEl);
-    }
-    // if (localStorage.length > 0) {
+    } 
 
+    // if (localStorage.length > 0) {
+        
     // }
 }
 
@@ -243,7 +241,8 @@ var loadCity = function () {
 // };
 
 searchBtn.on('click', formSearchHandler);
-$("#city-results").on('click', cityClickHandler);
+
+$("#city-history").on('click', cityClickHandler);
 
 $("#clear-history").on("click", (event) => {
     localStorage.clear();
