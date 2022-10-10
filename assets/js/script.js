@@ -57,7 +57,7 @@ var getCurrWeather = (event) => {
             var currWeatherIcon = "https://openweathermap.org/img/w/" + response.weather[0].icon + ".png";
             var currTimeUTC = response.dt.date;
             var currTime = moment(currTimeUTC).format("MM-DD-YYYY  ");
-            var currTemp = response.main.temp;
+            var currTemp = parseFloat(1.8*(response.main.temp-273)+32).toFixed(0);
             var currWind = response.wind.speed;
             var currHumidity = response.main.humidity;
             loadCity();
@@ -100,7 +100,7 @@ var fiveDayForecast = (event) => {
                         <ul class="list"id="fiva-day-weather" p-2>
                             <li>${futureTime}</li>
                             <li class="weather-icon"><img src=${futureIcon}></li>
-                            <li>Temp: ${futureDays.main.temp}°F</li>
+                            <li>Temp: ${parseFloat(1.8*(futureDays.main.temp-273)+32).toFixed(0)}°F</li>
                             <br>
                             <li>Wind: ${futureDays.wind.speed}mph</li>
                             <br>
