@@ -106,6 +106,7 @@ var fiveDayForcast = (event) => {
                             <li>Humidity: ${futureDays.main.humidity}%</li>
                         </ul>
                     </div>`;
+                    console.table(fiveDayForcast)
             }
             fiveDayForcast += `</div>`;
             $(".5-day").html(fiveDayForcast);
