@@ -62,7 +62,7 @@ var getCurrWeather = (event) => {
             var currHumidity = response.main.humidity;
             loadCity();
             fiveDayForcast(event);
-
+            // $("#curr-weather").text(response.name);
             var currentWeather = `
                 <h2>${response.name} ${currTime}<img src="${currWeatherIcon}"></h2>
                  <ul class="list-forcast">
@@ -70,7 +70,7 @@ var getCurrWeather = (event) => {
                     <li>Wind: ${currWind}mph</li>
                     <li>Humidity: ${currHumidity}%</li>
                  </ul>`;
-            $("curr-weather").html(currentWeather);
+            $("#curr-weather").html(currentWeather);
         })
 };
 
