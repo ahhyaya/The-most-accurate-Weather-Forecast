@@ -76,7 +76,7 @@ var getCurrWeather = (event) => {
 
 var fiveDayForcast = (event) => {
     var cityValue = city.val();
-    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityValue + "&appid=" + APIKey;
+    var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityValue + "&appid=" + APIKey;
     fetch(queryURL)
         .then(handlerErrors)
         .then((response) => {
@@ -87,10 +87,11 @@ var fiveDayForcast = (event) => {
             var fiveDayForcast = `
                 <h2>5-Day-Forcast</h2>
                 <div id="five-day-forcast">`;
-            for (var i = 0; i < response.length; i++) {
+            for (var i = 0; i < response.list.length; i++) {
                 var futureDays = response.list[i];
-                var futureTimeUTC = futureDays.dt;
+                var futureTimeUTC = futureDays.dt.date;
                 var futureTime = moment(futureTimeUTC).format("MM-DD-YYYY  ");
+                // console.table(futureTime)
                 var futureIcon = "https://openweathermap.org/img/w/" + futureDays.weather[0].icon + ".png";
 
                 fiveDayForcast += `
@@ -107,7 +108,7 @@ var fiveDayForcast = (event) => {
                     </div>`;
             }
             fiveDayForcast += `</div>`;
-            $("five-day-forcast").html(fiveDayForcast);
+            $(".5-day").html(fiveDayForcast);
         });
 };
 
