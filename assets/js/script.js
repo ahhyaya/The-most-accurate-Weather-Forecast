@@ -1,7 +1,7 @@
 var searchBtn = $("#search-btn");
 var APIKey = "6b4dd594eb93d97558f4b8bf3d0ad157";
 var city = $("#city-input");
-var currWeatherForcastEl = $("#curr-weather-forcast");
+var currWeatherEl = $("#curr-weather");
 // var repoSearchTerm = $("repo-search-term");
 var cityInput = city.val();
 var cityLocal = "";
@@ -21,9 +21,10 @@ var handlerErrors = (response) => {
 var formSearchHandler = (event) => {
     event.preventDefault();
     // console.log(cityInput)
-    if (cityInput) {
-        getCurrWeather(cityInput);
-        currWeatherForcastEl.textContent = '';
+    cityLocal = city.val()
+    if (cityLocal) {
+        getCurrWeather(cityLocal);
+        currWeatherEl.textContent = '';
         city.value = '';
     } else {
         alert('Please enter a valid city name');
@@ -33,7 +34,7 @@ var formSearchHandler = (event) => {
 var cityClickHandler = (event) => {
     event.preventDefault();
     city.val(event.target.textContent);
-    storedCity = city.val();
+    cityLocal = city.val();
     getCurrWeather(event);
 }
 
@@ -142,50 +143,14 @@ var loadCity = () => {
                 cityLocal = cities;
             }
             if (cities == cityLocal) {
-                citiesEl = `<button type="button" class="active id="search-btn">${cityInputKey}</button></li>`;
+                citiesEl = `<button type="button" class="active id="search-btn">${cityInput}</button></li>`;
             } else {
-                citiesEl = `<button type="button" id="search-btn">${cityInputKey}</button></li>`
+                citiesEl = `<button type="button" id="search-btn">${cityInput}</button></li>`
             }
             $("#city-history").prepend(citiesEl);
         }
     }
-
-
-
-
-
-
-
-    // //loadcity 1st try
-    // if (localStorage.length !== 0) {
-    //     var storedCity = "cities" +(localStorage.length - 1);
-    //     var storedCityName = localStorage.getItem(storedCity);
-    //     // console.log(storedCityName)
-    //     city.attr("value",storedCityName);
-    // }else if (storedCityName) {
-    //     city.attr("value",storedCityName);
-    // } else {
-    //     city.attr("value","Los Angeles")
-    // }
-
-    //     for (var i = 0; i < localStorage.length; i++) {
-    //         var cityLocal = localStorage.getItem("cities" + i);
-    //         if (cityInput === "") {
-    //             cityInput = cityLocal;
-    //             console.log(cityInput)
-    //         }
-    //         var cityEl;
-    //         if (cityLocal == cityInput) {
-    //             cityEl = `<button type="button" class="active">${storedCity}</button></li>`;
-    //             // console.log(cityEl)
-    //         } else {
-    //             cityEl = `button type="button">${storedCity}</button></li>`
-    //             // console.log(cityEl)
-    //         }
-    //         $("city-history").prepend(cityEl);
-    //     }
-    } 
-
+}
 
 searchBtn.on('click', formSearchHandler);
 
@@ -194,4 +159,4 @@ $("#city-history").on('click', cityClickHandler);
 
 // loadCity();
 // getCurrWeather();
-// localStorage.clear();
+// localStorage.clear();        
