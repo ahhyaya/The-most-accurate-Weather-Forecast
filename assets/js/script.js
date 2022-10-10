@@ -2,8 +2,11 @@ var searchBtn = $("#search-btn");
 var APIKey = "6b4dd594eb93d97558f4b8bf3d0ad157";
 var city = $("#city-input");
 var currWeatherForcastEl = $("#curr-weather-forcast");
-var repoSearchTerm = $("repo-search-term");
+// var repoSearchTerm = $("repo-search-term");
 var cityInput = city.val();
+var cityLocal = "";
+// var cardEl = $("#temp-card");
+// console.log(cardEl)
 
 //Error Handler
 var handlerErrors = (response) => {
@@ -37,8 +40,9 @@ var cityClickHandler = (event) => {
 //searching city function second try
 var getCurrWeather = (event) => {
     var cityValue = city.val();
+    cityLocal = city.val();
     var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityValue + "&appid=" + APIKey;
-    // console.log(queryURL);
+    console.log(queryURL);
 
     fetch(queryURL)
         .then(handlerErrors)
@@ -46,6 +50,8 @@ var getCurrWeather = (event) => {
             return response.json();
         })
         .then((response) => {
+            // console.log(response)
+            // cardEl.text(response.main.temp);
             saveCity(cityValue);
             var currWeatherIcon = "https://openweathermap.org/img/w/" + response.weather[0].icon + ".png";
             var currTimeUTC = response.dt.date;
@@ -81,7 +87,7 @@ var fiveDayForcast = (event) => {
                 <h2>5-Day-Forcast</h2>
                 <div id="five-day-forcast">`;
             for (var i = 0; i < response.length; i++) {
-                var futureDays = response[i];
+                var futureDays = response.list[i];
                 var futureTimeUTC = futureDays.dt;
                 var futureTime = moment(futureTimeUTC).format("MM-DD-YYYY  ");
                 var futureIcon = "https://openweathermap.org/img/w/" + futureDays.weather[0].icon + ".png";
@@ -99,7 +105,7 @@ var fiveDayForcast = (event) => {
                         </ul>
                     </div>`;
             }
-            // fiveDayForcast += `</div>`;
+            fiveDayForcast += `</div>`;
             $("five-day-forcast").html(fiveDayForcast);
         });
 };
@@ -118,6 +124,7 @@ var saveCity = (searchingCity) => {
 }
 
 var loadCity = () => {
+    console.log("hello")
     $("#city-history").empty();
     //loadcity 2nd try
     if (localStorage.length === 0) {
@@ -130,14 +137,14 @@ var loadCity = () => {
         for (var i = 0; i < localStorage.length; i++) {
             var cities = localStorage.getItem("cities", + i);
             var citiesEl;
-            var cityLocal;
+            
             if (cityLocal === ""){
                 cityLocal = cities;
             }
             if (cities == cityLocal) {
-                citiesEl = `<button type="button" class="active">${cityInputKey}</button></li>`;
+                citiesEl = `<button type="button" class="active id="search-btn">${cityInputKey}</button></li>`;
             } else {
-                citiesEl = `<button type="button">${cityInputKey}</button></li>`
+                citiesEl = `<button type="button" id="search-btn">${cityInputKey}</button></li>`
             }
             $("#city-history").prepend(citiesEl);
         }
@@ -184,11 +191,7 @@ searchBtn.on('click', formSearchHandler);
 
 $("#city-history").on('click', cityClickHandler);
 
-$("#clear-history").on("click", (event) => {
-    localStorage.clear();
-    loadCity();
-});
 
-loadCity();
-getCurrWeather();
+// loadCity();
+// getCurrWeather();
 // localStorage.clear();

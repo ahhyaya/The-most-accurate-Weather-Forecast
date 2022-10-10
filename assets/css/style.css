@@ -57,7 +57,7 @@ p {
     flex-direction: column;
   }
 
-  #five-day-forcast {
+  .five-day-forcast {
     display: flex;
     flex-direction: row;
     border: 1px black;

@@ -17,6 +17,7 @@
     <header id="dashboard">
         <h1>Weather Dashboard</h1>
     </header>
+    <p id="temp-card"></p>
     <main class="row">
         <!-- seaching tool-->
         <div class="col col-lg-3 search-gourp mb-3">
@@ -33,19 +34,19 @@
             </form>
             <!-- searching history -->
             <ul id="city-history" class="list mt-4"></ul>
-            <a href="#" id="clear-history"></a>
+            <!-- <a href="#" id="clear-history"></a> -->
         </div>
 
 
         <!-- weather forcast main -->
         <div class="col card col-lg-9">
             <div class="row row-right">
-                <div class="col card-body" id="curr-weather-forcast">
+                <div class="col card-body" id="curr-weather">
                 </div>
                 <!-- <div class="row" id="five-day-forcast"></div> -->
             </div>
         </div>
-
+        
     </main>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
