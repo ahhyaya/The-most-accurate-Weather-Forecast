@@ -48,7 +48,7 @@ var getCurrWeather = function (event) {
             var currWind = response.wind.speed;
             var currHumidity = response.main.humidity;
             loadCity();
-            fiveDayForcast(event);
+            // fiveDayForcast(event);
 
             var currentWeather = `
                 <h2>${response.name} ${currTime}<img src="${currWeatherIcon}"></h2>
@@ -59,7 +59,7 @@ var getCurrWeather = function (event) {
                  </ul>`;
 
             $("curr-weather").html(currentWeather);
-}}
+})};
 
 
 
@@ -112,15 +112,32 @@ var saveCity = function (searchingCity) {
     }
 }
 
-// var loadCity = function() {
-//     for (var i =0; i < city.length; i++) {
-//     if(localStorage.length !== 0) {
-//         var storedCity = city.val();
-//         var StoredCityNum = localStorage.getItem(storedCity);
-//         city.val()=StoredCityNum;
-//     }
+var loadCity = function() {
+    
+    if(localStorage.length !== 0) {
+        var storedCity = city.val();
+        var StoredCityNum = localStorage.getItem(storedCity);
+        storedCity=StoredCityNum;
+    }else {
+        $(city).attr("value",StoredCityNum);
+    }
+    for (var i =0; i < localStorage.length; i++) {
+        var cityLocal = localStorage.getItem("cities" + i);
+        if (cityLocal === "" ) {
+            city = storedCity;
+        }
+        var cityEl;
+        if (storedCity === city) {
+            cityEl = `<button type="button" class="active">${storedCity}</button></li>`;
+        } else {
+            cityEl = `button type="button">${storedCity}</button></li>`
+        }
+        $("city-result").prepend(cityEl);
+}
+// if (localStorage.length > 0) {
+
 // }
-// }
+}
 
 
 
