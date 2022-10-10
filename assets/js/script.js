@@ -39,7 +39,7 @@ var cityClickHandler = function (event) {
 var getCurrWeather = function (event) {
     var cityValue = city.val();
     var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityValue + "&appid=" + APIKey;
-    // console.log(queryURL);
+    console.log(queryURL);
 
     fetch(queryURL)
         .then(handlerErrors)
@@ -55,7 +55,7 @@ var getCurrWeather = function (event) {
             var currWind = response.wind.speed;
             var currHumidity = response.main.humidity;
             loadCity();
-            // fiveDayForcast(event);
+            fiveDayForcast(event);
 
             var currentWeather = `
                 <h2>${response.name} ${currTime}<img src="${currWeatherIcon}"></h2>
@@ -64,7 +64,6 @@ var getCurrWeather = function (event) {
                     <li>Wind: ${currWind}mph</li>
                     <li>Humidity: ${currHumidity}%</li>
                  </ul>`;
-
             $("curr-weather").html(currentWeather);
         })
 };
@@ -78,37 +77,36 @@ function fiveDayForcast(event) {
     fetch(queryURL)
         .then(handlerErrors)
         .then((response) => {
+            // console.table(response)
             return response.json();
         })
         .then((response) => {
             var fiveDayForcast = `
-        <div id="five-day-forcast">`;
-            for (var i = 0; i < response.list.length; i++) {
-                var futureDays = response.list[i];
-                var futureTimeUTC = response.list[i].dt;
+                <h2>5-Day-Forcast</h2>
+                <div id="five-day-forcast">`;
+            for (var i = 0; i < response.length; i++) {
+                var futureDays = response[i];
+                var futureTimeUTC = futureDays.dt;
                 var futureTime = moment(futureTimeUTC).format("MM-DD-YYYY  ");
-                var futureIcon = "https://openweathermap.org/img/w/" + response.weather[0].icon + ".png";
+                var futureIcon = "https://openweathermap.org/img/w/" + futureDays.weather[0].icon + ".png";
 
                 fiveDayForcast += `
-            <div class="five-day-forcast card m-2 p0">
-                <ul class="list" p-3>
-                    <li>${futureTime}</li>
-                    <li class="weather-icon"><img src=${futureIcon}></li>
-                    <li>Temp: ${futureDays.main.temp}°F</li>
-                    <br>
-                    <li>Wind: ${futureDays.wind.speed}mph</li>
-                    <br>
-                    <li>Humidity: ${futureDays.main.humidity}%</li>
-                </ul>
-            </div>`;
+                    <div class="five-day-forcast card m-2 p0">
+                        <ul class="list" p-3>
+                            <li>${futureTime}</li>
+                            <li class="weather-icon"><img src=${futureIcon}></li>
+                            <li>Temp: ${futureDays.main.temp}°F</li>
+                            <br>
+                            <li>Wind: ${futureDays.wind.speed}mph</li>
+                            <br>
+                            <li>Humidity: ${futureDays.main.humidity}%</li>
+                        </ul>
+                    </div>`;
             }
             fiveDayForcast += `</div>`;
             $("five-day-forcast").html(fiveDayForcast);
         });
 };
-
-
-
 
 
 
@@ -145,14 +143,18 @@ function fiveDayForcast(event) {
 
 
 var saveCity = function (searchingCity) {
+    var cityStored = false;
     for (var i = 0; i < localStorage.length; i++) {
         if (localStorage["cities" + i] == searchingCity) {
+            cityStored = true;
             break;
-        } else {
+        } 
+    } 
+    if (cityStored === false) {
             localStorage.setItem("cities" + localStorage.length, searchingCity);
         }
     }
-}
+
 
 var loadCity = function () {
 
@@ -243,7 +245,7 @@ var loadCity = function () {
 searchBtn.on('click', formSearchHandler);
 $("#city-results").on('click', cityClickHandler);
 
-$("#clear-history").on("click",(event) => {
+$("#clear-history").on("click", (event) => {
     localStorage.clear();
     loadCity();
 });
