@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Most Accurate Weather Forecast</title>
-    
+
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -22,81 +22,38 @@
         <h1>Weather Dashboard</h1>
     </header>
     <main class="row">
-
         <!-- seaching tool-->
         <div class="col col-lg-3 search-gourp mb-3">
-            <p>Search for a city:</p>
-            <input type="text" class="form-control" placeholder="Please enter a city" aria-label="Please enter a city"
-                aria-describedby="button-addon2" id="city-input">
-            <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="search-button" id="search-btn">Search</button>
-            </div>
-
+            <form>
+                <p>Search for a city:</p>
+                <div class="form-row">
+                    <input type="text" class="form-control" placeholder="Please enter a city"
+                        aria-label="Please enter a city" aria-describedby="button-addon2" id="city-input"
+                        value="Los Angeles">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="search-button" id="search-btn">Search</button>
+                    </div>
+                </div>
+            </form>
             <!-- searching history -->
-            <ul id="search-history" class="city-list"></ul>
+            <ul id="city-results" class="list mt-4"></ul>
             <a href="#" id="clear-history"></a>
-            <!-- <button class="btn btn-outline-secondary majorBtn" type="button" id="button-addon2" data-city="atlanta">Atlanta</button>
-            <button class="btn btn-outline-secondary majorBtn" type="button" id="button-addon2" data-city="denver">Denver</button>
-            <button class="btn btn-outline-secondary majorBtn" type="button" id="button-addon2" data-city="seattle">Seattle</button>
-            <button class="btn btn-outline-secondary majorBtn" type="button" id="button-addon2" data-city="san francisco">San Francisco</button>
-            <button class="btn btn-outline-secondary majorBtn" type="button" id="button-addon2" data-city="orlando">Orlando</button>
-            <button class="btn btn-outline-secondary majorBtn" type="button" id="button-addon2" data-city="new york">New York</button>
-            <button class="btn btn-outline-secondary majorBtn" type="button" id="button-addon2" data-city="chicago">Chicago</button>
-            <button class="btn btn-outline-secondary majorBtn" type="button" id="button-addon2" data-city="austin">Austin</button> -->
-            <!-- </div> -->
         </div>
 
-        <ul id="city-results" class="list"></ul>
 
         <!-- weather forcast main -->
         <div class="col card col-lg-9">
             <div class="row row-right">
-            <div class="col card-body" id="curr-weather-forcast">
-                <h2 class="subtitle" id="curr-weather"></h2>
-                <!-- <div class="currForcast" id="city-date-icon" data-currForcast="currForcast"></div>
+                <div class="col card-body" id="curr-weather-forcast">
+                    <!-- <h2 class="subtitle" id="curr-weather"></h2> -->
+                    <!-- <div class="currForcast" id="city-date-icon" data-currForcast="currForcast"></div>
                 <div class="currForcast" id="curr-temp" data-currForcast="currForcast"></div>
                 <div class="currForcast" id="curr-wind" data-currForcast="currForcast"></div>
                 <div class="currForcast" id="curr-humidity" data-currForcast="currForcast"></div> -->
-            </div>
-            <div class="row" id="five-day-forcast">
-                5-Day Forcast
-                <div class="col col-lg-2.4 card-body" id="day1">
-                    <div class="futureForcast" id="future-city-date-icon" data-futureForcast="future-city-date-icon"></div>
-                    <div class="futureForcast" id="futureTemp" data-futureForcast="futureTemp"></div>
-                    <div class="futureForcast" id="futureWind" data-futureForcast="futureWind"></div>
-                    <div class="futureForcast" id="futureHumidity" data-futureForcast="futureHumidity"></div>
                 </div>
-                <div class="col col-lg-2.4 card-body" id="day2">
-                    <div class="futureForcast" id="future-city-date-icon" data-futureForcast="future-city-date-icon"></div>
-                    <div class="futureForcast" id="futureTemp" data-futureForcast="futureTemp"></div>
-                    <div class="futureForcast" id="futureWind" data-futureForcast="futureWind"></div>
-                    <div class="futureForcast" id="futureHumidity" data-futureForcast="futureHumidity"></div>
-                </div>
-                <div class="col col-lg-2.4 card-body" id="day3">
-                    <div class="futureForcast" id="future-city-date-icon" data-futureForcast="future-city-date-icon"></div>
-                    <div class="futureForcast" id="futureTemp" data-futureForcast="futureTemp"></div>
-                    <div class="futureForcast" id="futureWind" data-futureForcast="futureWind"></div>
-                    <div class="futureForcast" id="futureHumidity" data-futureForcast="futureHumidity"></div>
-                </div>
-                <div class="col col-lg-2.4 card-body" id="day4">
-                    <div class="futureForcast" id="future-city-date-icon" data-futureForcast="future-city-date-icon"></div>
-                    <div class="futureForcast" id="futureTemp" data-futureForcast="futureTemp"></div>
-                    <div class="futureForcast" id="futureWind" data-futureForcast="futureWind"></div>
-                    <div class="futureForcast" id="futureHumidity" data-futureForcast="futureHumidity"></div>
-                </div>
-                <div class="col col-lg-2.4 card-body" id="day5">
-                    <div class="futureForcast" id="future-city-date-icon" data-futureForcast="future-city-date-icon"></div>
-                    <div class="futureForcast" id="futureTemp" data-futureForcast="futureTemp"></div>
-                    <div class="futureForcast" id="futureWind" data-futureForcast="futureWind"></div>
-                    <div class="futureForcast" id="futureHumidity" data-futureForcast="futureHumidity"></div>
-                </div>
-
+                <div class="row" id="five-day-forcast"></div>
             </div>
         </div>
-        </div>
-
-
-
 
     </main>
     <script src="./assets/js/script.js"></script>
