@@ -8,7 +8,7 @@ var repoSearchTerm = $("repo-search-term");
 //Error Handler
 var handlerErrors = (response) => {
     if (!response.ok) {
-        throw Error(res.statusText);
+        throw Error(response.statusText);
     }
     return response;
 }
@@ -27,6 +27,13 @@ var formSearchHandler = function (event) {
         alert('Please enter a valid city name');
     }
 };
+
+var cityClickHandler = function(event) {
+    event.preventDefault();
+    city.val(event.target.textContent);
+    storedCity=city.val();
+    getCurrWeather(event);
+}
 
 //searching city function second try
 var getCurrWeather = function (event) {
@@ -233,6 +240,8 @@ var loadCity = function() {
 // };
 
 searchBtn.on('click', formSearchHandler);
-// $(".majorBtn").on('click', cityClickHandler);
+$("#city-results").on('click', cityClickHandler);
 
+loadCity();
+getCurrWeather();
 // localStorage.clear();
