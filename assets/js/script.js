@@ -18,12 +18,12 @@ var handlerErrors = (response) => {
 
 
 // search btn
-var formSearchHandler = (event) => {
+var formSearchHandler = function (event) {
     event.preventDefault();
+    var cityInput = city.val();
     // console.log(cityInput)
-    cityLocal = city.val()
-    if (cityLocal) {
-        getCurrWeather(cityLocal);
+    if (cityInput) {
+        getCurrWeather(cityInput);
         currWeatherEl.textContent = '';
         city.value = '';
     } else {
@@ -129,23 +129,27 @@ var loadCity = () => {
     $("#city-history").empty();
     //loadcity 2nd try
     if (localStorage.length === 0) {
-        city.attr("value", cityInput);
+        if (lastCity) {
+        city.attr("value", lastCity);
     } else {
-        var cityInputKey = "cities" + (localStorage.length - 1);
-        cityInput = localStorage.getItem(cityInputKey);
-        city.attr("value", cityInputKey);
+        city.attr("value", "");
+    }
+   } else {
+        var lastCityKey = "cities" + (localStorage.length - 1);
+        var lastCity = localStorage.getItem(lastCityKey);
+        city.attr("value", lastCity);
 
         for (var i = 0; i < localStorage.length; i++) {
-            var cities = localStorage.getItem("cities", + i);
+            var cities = localStorage.getItem("cities" + i);
             var citiesEl;
             
             if (cityLocal === ""){
-                cityLocal = cities;
+                cityLocal = lastCity;
             }
-            if (cities == cityLocal) {
-                citiesEl = `<button type="button" class="active id="search-btn">${cityInput}</button></li>`;
+            if (cities === cityLocal) {
+                citiesEl = `<button type="button" class="active id="search-btn">${cities}</button>`;
             } else {
-                citiesEl = `<button type="button" id="search-btn">${cityInput}</button></li>`
+                citiesEl = `<button type="button" id="search-btn">${cities}</button></li>`
             }
             $("#city-history").prepend(citiesEl);
         }
