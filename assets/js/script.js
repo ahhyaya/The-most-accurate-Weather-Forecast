@@ -147,9 +147,9 @@ var loadCity = () => {
                 cityLocal = lastCity;
             }
             if (cities === cityLocal) {
-                citiesEl = `<button type="button" class="active id="search-btn">${cities}</button>`;
+                citiesEl = `<button type="button" class="active btn" id="search-btn">${cities}</button>`;
             } else {
-                citiesEl = `<button type="button" id="search-btn">${cities}</button></li>`
+                citiesEl = `<button type="button" class="btn" id="search-btn">${cities}</button></li>`
             }
             $("#city-history").prepend(citiesEl);
         }
