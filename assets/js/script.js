@@ -86,7 +86,7 @@ var fiveDayForecast = (event) => {
         .then((response) => {
             var fiveDayForecast = `
                 <h3>5-Day-Forecast</h3>
-                <div id="five-day-forecast">`;
+                <div id="five-day-forecast" class="d-inline-flex flex-wrap">`;
             for (var i = 0; i < 5; i++) {
                 var futureDays = response.list[i];
                 // var day = moment().add(i + 1,'day').format("MMM Do YY")
@@ -97,7 +97,7 @@ var fiveDayForecast = (event) => {
 
                 fiveDayForecast += `
                     <div class="five-day-forecast card">
-                        <ul class="list"id="fiva-day-weather" p-2>
+                        <ul class="list-ul"id="fiva-day-weather" p-2>
                             <li>${futureTime}</li>
                             <li class="weather-icon"><img src=${futureIcon}></li>
                             <li>Temp: ${parseFloat(1.8*(futureDays.main.temp-273)+32).toFixed(0)}°F</li>

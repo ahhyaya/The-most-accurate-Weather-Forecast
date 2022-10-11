@@ -54,20 +54,11 @@ p {
 }
 .btn {
     background:radial-gradient(orange,navy);
-    color: black;
     line-height: 20px;
     margin: 10px 0 10px 0;
 }
 
-#search-btn {
-    line-height: 20px;
-    background:radial-gradient(white,navy);
-    margin: 10px 0 40px 0;
-    width: 100%;
-
-}
-
-#list-btn {
+#list-btn,#search-btn{
     background:radial-gradient(orange,navy);
     margin: 10px 0 10px 0;
     width: 100%;
@@ -75,13 +66,13 @@ p {
     text-shadow: 3px 3px 3px navy;
 }
 
-#list-btn:hover {
+#list-btn:hover,#search-btn:hover {
     box-shadow: inset 0px 0px 8px
     rgb(222, 220, 222), 0 0 15px
     rgb(222, 220, 222);
 }
 
-#list-btn:active {
+#list-btn:active,#search-btn:active {
     font-size: 14px;
 }
 
@@ -108,6 +99,11 @@ ul {
     /* text-align: left; */
   }
 
+  .list-ul {
+    display: flex;
+    width: auto;
+  }
+
   #fiva-day-weather {
     display: flex;
     display: block;
@@ -128,4 +124,22 @@ ul {
     width: 100%;
     height: auto;
     background-color: rgba(224, 218, 196, 0.697);
+  }
+
+
+  /*  To make it responsive accordingly in tab */
+@media only screen and (max-width: 996px) {
+    #search-btn {
+      width: 100%;
+    }
+    #search-btn {
+      width: 100%;
+    }
+  }
+  /*  To make it responsive accordingly in mobile */
+  
+  @media only screen and (max-width: 576px) {
+    #five-day-forecast {
+      justify-content: center;
+    }
   }
