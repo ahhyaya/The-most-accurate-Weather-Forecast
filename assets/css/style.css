@@ -49,9 +49,6 @@ p {
     font-weight: bold;
 }
 
-.currForecast {
-    text-align: left;
-}
 .btn {
     background:radial-gradient(orange,navy);
     line-height: 20px;
@@ -128,18 +125,26 @@ ul {
 
 
   /*  To make it responsive accordingly in tab */
-@media only screen and (max-width: 996px) {
-    #search-btn {
-      width: 100%;
+
+  @media screen and (max-width: 576px) {
+    main
+   {
+      flex-direction: column;
     }
-    #search-btn {
-      width: 100%;
+  }
+
+@media only screen and (max-width: 576px) {
+    #search-btn,#list-btn {
+        width: 50vw;
+    }
+    #city-input {
+      width: 50vw;
     }
   }
   /*  To make it responsive accordingly in mobile */
   
   @media only screen and (max-width: 576px) {
-    #five-day-forecast {
+    #body {
       justify-content: center;
     }
   }
