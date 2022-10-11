@@ -94,7 +94,7 @@ var fiveDayForecast = (event) => {
 
                 fiveDayForecast += `
                     <div class="five-day-forecast card">
-                        <ul class="list-ul"id="fiva-day-weather" p-2>
+                        <ul class="list-ul"id="five-day-weather">
                             <li>${futureTime}</li>
                             <li class="weather-icon"><img src=${futureIcon}></li>
                             <li>Temp: ${parseFloat(1.8 * (futureDays.main.temp - 273) + 32).toFixed(0)}°F</li>
