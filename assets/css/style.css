@@ -18,7 +18,7 @@ h1 {
 }
 
 h2 {
-    font-family: fantasy;
+    /* font-family: fantasy; */
     /* text-shadow: 3px 3px 3px orange; */
     font-weight: bold;
 }
@@ -108,7 +108,7 @@ ul {
     align-items: center;
     background:radial-gradient(orange,navy);
     color: white;
-    font-family: fantasy;
+    /* font-family: fantasy; */
     text-shadow: 2px 2px 2px navy;
     font-size: 17px;
     padding:5px;

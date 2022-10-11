@@ -2,11 +2,9 @@ var searchBtn = $("#search-btn");
 var APIKey = "6b4dd594eb93d97558f4b8bf3d0ad157";
 var city = $("#city-input");
 var currWeatherEl = $("#curr-weather");
-// var repoSearchTerm = $("repo-search-term");
 var cityInput = city.val();
 var cityLocal = "";
-// var cardEl = $("#temp-card");
-// console.log(cardEl)
+
 
 //Error Handler
 var handlerErrors = (response) => {
@@ -51,18 +49,17 @@ var getCurrWeather = (event) => {
             return response.json();
         })
         .then((response) => {
-            // console.log(response)
-            // cardEl.text(response.main.temp);
+            // console.log(response);
             saveCity(cityValue);
             var currWeatherIcon = "https://openweathermap.org/img/w/" + response.weather[0].icon + ".png";
             var currTimeUTC = response.dt.date;
             var currTime = moment(currTimeUTC).format("MM-DD-YYYY  ");
-            var currTemp = parseFloat(1.8*(response.main.temp-273)+32).toFixed(0);
+            var currTemp = parseFloat(1.8 * (response.main.temp - 273) + 32).toFixed(0);
             var currWind = response.wind.speed;
             var currHumidity = response.main.humidity;
             loadCity();
             fiveDayForecast(event);
-            // $("#curr-weather").text(response.name);
+
             var currentWeather = `
                 <h2>${response.name} ${currTime}<img src="${currWeatherIcon}"></h2>
                  <ul class="list-forecast">
@@ -91,7 +88,7 @@ var fiveDayForecast = (event) => {
                 var futureDays = response.list[i];
                 // var day = moment().add(i + 1,'day').format("MMM Do YY")
                 // var futureTimeUTC = futureDays.dt.date;
-                var futureTime = moment().add(i + 1,'day').format("MMM Do YY");
+                var futureTime = moment().add(i + 1, 'day').format("MMM Do YY");
                 // console.table(futureTime)
                 var futureIcon = "https://openweathermap.org/img/w/" + futureDays.weather[0].icon + ".png";
 
@@ -100,14 +97,14 @@ var fiveDayForecast = (event) => {
                         <ul class="list-ul"id="fiva-day-weather" p-2>
                             <li>${futureTime}</li>
                             <li class="weather-icon"><img src=${futureIcon}></li>
-                            <li>Temp: ${parseFloat(1.8*(futureDays.main.temp-273)+32).toFixed(0)}°F</li>
+                            <li>Temp: ${parseFloat(1.8 * (futureDays.main.temp - 273) + 32).toFixed(0)}°F</li>
                             <br>
                             <li>Wind: ${futureDays.wind.speed}mph</li>
                             <br>
                             <li>Humidity: ${futureDays.main.humidity}%</li>
                         </ul>
                     </div>`;
-                    // console.table(fiveDayForecast)
+                // console.table(fiveDayForecast)
             }
             fiveDayForecast += `</div>`;
             $(".five-day").html(fiveDayForecast);
@@ -133,11 +130,11 @@ var loadCity = () => {
     //loadcity 2nd try
     if (localStorage.length === 0) {
         if (lastCity) {
-        city.attr("value", lastCity);
+            city.attr("value", lastCity);
+        } else {
+            city.attr("value", "");
+        }
     } else {
-        city.attr("value", "");
-    }
-   } else {
         var lastCityKey = "cities" + (localStorage.length - 1);
         var lastCity = localStorage.getItem(lastCityKey);
         city.attr("value", lastCity);
@@ -145,8 +142,8 @@ var loadCity = () => {
         for (var i = 0; i < localStorage.length; i++) {
             var cities = localStorage.getItem("cities" + i);
             var citiesEl;
-            
-            if (cityLocal === ""){
+
+            if (cityLocal === "") {
                 cityLocal = lastCity;
             }
             if (cities === cityLocal) {
@@ -160,10 +157,6 @@ var loadCity = () => {
 }
 
 searchBtn.on('click', formSearchHandler);
-
 $("#city-history").on('click', cityClickHandler);
 
-
-// loadCity();
-// getCurrWeather();
 // localStorage.clear();        
