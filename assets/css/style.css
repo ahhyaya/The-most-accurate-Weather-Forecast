@@ -1,4 +1,3 @@
-
 * {
     margin: 0;
     padding: 0;
@@ -11,7 +10,7 @@
 }
 
 h1 {
-    background:radial-gradient(orange,navy);
+    background: radial-gradient(orange, navy);
     padding: 20px;
     margin-bottom: 35px;
     margin-top: -10px;
@@ -23,7 +22,7 @@ h2 {
 
 h3 {
     font-size: 20px;
-    font-style:italic;
+    font-style: italic;
 }
 
 .container {
@@ -48,26 +47,27 @@ p {
 }
 
 .btn {
-    background:radial-gradient(orange,navy);
+    background: radial-gradient(orange, navy);
     line-height: 20px;
     margin: 10px 0 10px 0;
 }
 
-#list-btn,#search-btn{
-    background:radial-gradient(orange,navy);
+#list-btn,
+#search-btn {
+    background: radial-gradient(orange, navy);
     margin: 10px 0 10px 0;
     width: 100%;
     color: white;
     text-shadow: 3px 3px 3px navy;
 }
 
-#list-btn:hover,#search-btn:hover {
-    box-shadow: inset 0px 0px 8px
-    rgb(222, 220, 222), 0 0 15px
-    rgb(222, 220, 222);
+#list-btn:hover,
+#search-btn:hover {
+    box-shadow: inset 0px 0px 8px rgb(222, 220, 222), 0 0 15px rgb(222, 220, 222);
 }
 
-#list-btn:active,#search-btn:active {
+#list-btn:active,
+#search-btn:active {
     font-size: 14px;
 }
 
@@ -86,60 +86,52 @@ p {
 }
 
 ul {
-  
-    list-style-type: none; 
-    padding: 0; 
-    margin: 0; 
-}
 
-/* .list-ul { */
-    /* display: flex; */
-    /* width: auto;  */
-/* } */
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
 
 #five-day-weather {
     display: flex;
     display: block;
     text-align: center;
     align-items: center;
-    background:radial-gradient(orange,navy);
+    background: radial-gradient(orange, navy);
     color: white;
     text-shadow: 2px 2px 2px navy;
     font-size: 16px;
-    padding:5px;
+    padding: 5px;
     margin: 5px;
     height: 100%;
     width: 100%;
-  }
+}
 
 .card-body {
-    /* width: 100%; */
-    /* height: auto; */
     background-color: rgba(224, 218, 196, 0.697);
-  }
+}
 
 
-  /*  To make it responsive accordingly in tab */
-
-  @media screen and (max-width: 576px) {
-    main
-   {
-      flex-direction: column;
+@media screen and (max-width: 576px) {
+    main {
+        flex-direction: column;
     }
-  }
+}
 
 @media only screen and (max-width: 576px) {
-    #search-btn,#list-btn {
+
+    #search-btn,
+    #list-btn {
         width: 50vw;
     }
+
     #city-input {
-      width: 50vw;
+        width: 50vw;
     }
-  }
-  /*  To make it responsive accordingly in mobile */
-  
-  @media only screen and (max-width: 576px) {
+}
+
+@media only screen and (max-width: 576px) {
     #body {
-      justify-content: center;
+        justify-content: center;
     }
-  }
+}
